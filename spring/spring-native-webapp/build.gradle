@@ -1,0 +1,30 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.6'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id 'org.springframework.experimental.aot' version '0.11.4'
+}
+
+group = 'eighty4.learning.spring'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+	maven { url 'https://repo.spring.io/release' }
+	mavenCentral()
+	maven { url 'https://repo.spring.io/milestone' }
+	maven { url 'https://repo.spring.io/snapshot' }
+}
+
+dependencies {
+	implementation('org.springframework.boot:spring-boot-starter-web') {
+		exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-core'
+		exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-websocket'
+	}
+	implementation "org.apache.tomcat.experimental:tomcat-embed-programmatic:${dependencyManagement.importedProperties["tomcat.version"]}"
+}
+
+tasks.named('bootBuildImage') {
+	builder = 'paketobuildpacks/builder:tiny'
+	environment = ['BP_NATIVE_IMAGE': 'true']
+}
