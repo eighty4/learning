@@ -1,6 +1,7 @@
 {
   "name": "ping-pong-native-module",
   "version": "0.0.0",
+  "main": "ping.js",
   "private": true,
   "dependencies": {
     "bindings": "1.5.0",

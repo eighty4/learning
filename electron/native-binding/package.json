@@ -1,0 +1,15 @@
+{
+  "name": "electron-using-native-module",
+  "version": "0.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "ping": "../../node/native-module"
+  },
+  "devDependencies": {
+    "electron": "^17.1.1",
+    "electron-rebuild": "^3.2.7"
+  }
+}

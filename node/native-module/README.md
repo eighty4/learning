@@ -4,6 +4,5 @@ Following along with :octocat: [nodejs/node-addon-examples](https://github.com/n
 
 ```
 yarn
-node ping.js
+node -e 'console.log(require("./ping.js").ping())'
 ```
-
