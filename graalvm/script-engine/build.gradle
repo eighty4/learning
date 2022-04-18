@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+    id 'org.graalvm.buildtools.native' version '0.9.4'
+}
+
+group 'eighty4.learning.graalvm'
+version '1.0-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+}
+
+tasks.withType(JavaExec) {
+    enableAssertions = true
+}
+
+nativeBuild {
+    javaLauncher = javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(17)
+        vendor = JvmVendorSpec.matching("GraalVM")
+    }
+    mainClass = "eighty4.learning.graalvm.js.FunWithScriptEngine"
+    buildArgs.add('--language:js')
+}
