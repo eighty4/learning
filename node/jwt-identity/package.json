@@ -1,0 +1,9 @@
+{
+  "name": "jwt-identity",
+  "version": "1.0.0",
+  "description": "JWT identity examples",
+  "main": "jwt-identity.js",
+  "dependencies": {
+    "jsonwebtoken": "^8.5.1"
+  }
+}
