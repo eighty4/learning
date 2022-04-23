@@ -17,13 +17,13 @@ openssl rsa -in jwt.private.pem -pubout -outform PEM -out jwt.public.pem
 
 Create a JWT, save it in an environment variable, and verify the JWT
 ```
-MY_JWT=$(node -e "console.log(require('./jwt-identity').sign('adam.be.g84d@gmail.com'))")
+MY_JWT=$(node jwt-sign.js adam.be.g84d@gmail.com)
 echo $MY_JWT
-node -e "console.log(require('./jwt-identity').verify('$MY_JWT'))"
+node jwt-verify.js $MY_JWT
 ```
 
 Create a JWT that expires immediately, wait a second, and verify the JWT
 ```
 MY_JWT=$(node -e "console.log(require('./jwt-identity', '1 second').sign('adam.be.g84d@gmail.com'))")
-node -e "console.log(require('./jwt-identity').verify('$MY_JWT'))"
+node jwt-verify.js $MY_JWT
 ```
