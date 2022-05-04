@@ -5,23 +5,8 @@ import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.HostAccess;
 
 import javax.script.ScriptException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class FunInvokingJavaMethod {
-
-    public static class FunActivities {
-
-        private final List<String> activities = new ArrayList<>();
-
-        public void addActivity(String activity) {
-            activities.add(activity);
-        }
-
-        public List<String> getActivities() {
-            return List.copyOf(activities);
-        }
-    }
 
     public static void main(String[] args) throws ScriptException {
 
@@ -35,7 +20,7 @@ public class FunInvokingJavaMethod {
             engine.put("activities", activities);
             engine.eval("activities.addActivity('bake cookies')");
 
-            assert(activities.getActivities().get(0).equals("bake cookies"));
+            assert (activities.getActivities().get(0).equals("bake cookies"));
 
             System.out.println(activities.getActivities());
         }

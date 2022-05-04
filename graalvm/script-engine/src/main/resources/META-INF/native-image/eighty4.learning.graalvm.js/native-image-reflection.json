@@ -1,0 +1,11 @@
+[
+  {
+    "name" : "eighty4.learning.graalvm.js.FunActivities",
+    "fields" : [
+    ],
+    "methods" : [
+      { "name" : "getActivities" },
+      { "name" : "addActivity", "parameterTypes" : ["java.lang.String"] }
+    ]
+  }
+]
