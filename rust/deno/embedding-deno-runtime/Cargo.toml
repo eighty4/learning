@@ -1,0 +1,9 @@
+[package]
+name = "embedding-deno"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+deno_core = "0.140.0"
+deno_runtime = "0.66.0"
+tokio = { version = "1.19.2", features = ["rt-multi-thread", "process"] }
