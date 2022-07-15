@@ -1,0 +1,24 @@
+---
+
+#module_defaults:
+#  apt:
+#    force_apt_get: yes
+
+#- name: Replace motd
+#  import_tasks: motd.yml
+
+- name: Configure users
+  import_tasks: users.yml
+
+- name: Configure SSH
+  import_tasks: ssh.yml
+
+- name: Run OS upgrades
+  import_tasks: upgrades.yml
+
+- name: Install and configure fail2ban
+  import_tasks: fail2ban.yml
+
+- name: Configure firewall
+  import_role:
+    name: firewall

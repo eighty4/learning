@@ -1,0 +1,14 @@
+---
+
+- name: Provision a TeamCity server to be saved as an AMI
+  hosts: all
+  remote_user: eighty4-admin
+  become: true
+  tasks:
+
+    - name: Install TeamCity service
+      import_role:
+        name: compose
+      vars:
+        service_name: teamcity-server
+        service_ports: ['8111']

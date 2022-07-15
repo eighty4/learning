@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:12.0
+    volumes:
+      - '/opt/eighty4/postgres/data:/var/lib/postgresql/data'
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: eighty4
+      POSTGRES_USER: eighty4
+      POSTGRES_PASSWORD: eighty4
+  adminer:
+    container_name: adminer
+    image: adminer:4.7.3
+    ports:
+      - 8080:8080

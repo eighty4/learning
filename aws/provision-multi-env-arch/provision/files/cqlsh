@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+docker run --network cassandra_default -it --rm cassandra:3.11.4 cqlsh cassandra

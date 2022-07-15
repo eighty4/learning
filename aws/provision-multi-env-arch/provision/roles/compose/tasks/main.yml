@@ -1,0 +1,75 @@
+---
+
+- name: Install AWS cli
+  import_role:
+    name: awscli
+  when: auth_with_ecr is defined and auth_with_ecr is true
+
+- name: Install Docker
+  import_role:
+    name: docker
+
+- name: Install Docker Compose
+  get_url:
+    url: https://github.com/docker/compose/releases/download/1.24.1/docker-compose-Linux-x86_64
+    dest: /usr/local/bin/docker-compose
+    group: eighty4
+    owner: eighty4-service
+    mode: 0500
+
+- name: Create app, data and log directories
+  file:
+    path: "{{ item }}"
+    owner: eighty4-service
+    group: eighty4
+    mode: 0750
+    recurse: true
+    state: directory
+  with_items:
+    - "/opt/eighty4/{{ service_name }}"
+    - "/opt/eighty4/{{ service_name }}/data"
+    - "/opt/eighty4/{{ service_name }}/logs"
+
+- name: Copy Docker Compose config
+  copy:
+    src: "../../services/{{ service_name }}.docker-compose.yml"
+    dest: "/opt/eighty4/{{ service_name }}/docker-compose.yml"
+    owner: eighty4-service
+    group: eighty4
+    mode: 0540
+
+- name: Copy systemd config for public images
+  template:
+    src: ../templates/docker-compose.service.j2
+    dest: "/etc/systemd/system/{{ service_name }}.service"
+    owner: eighty4-service
+    group: eighty4
+    mode: 0400
+  when: auth_with_ecr is not defined or auth_with_ecr is false
+
+- name: Copy systemd config for images on ECR
+  template:
+    src: ../templates/ecr.docker-compose.service.j2
+    dest: "/etc/systemd/system/{{ service_name }}.service"
+    owner: eighty4-service
+    group: eighty4
+    mode: 0400
+  when: auth_with_ecr is defined and auth_with_ecr is true
+
+- name: Enable service
+  systemd:
+    name: "{{ service_name }}"
+    enabled: yes
+    masked: no
+
+- name: Auth with ECR before pull
+  command: "$(aws ecr get-login --no-include-email --region us-east-1)"
+  when: auth_with_ecr is defined and auth_with_ecr is true
+
+- name: Pull Docker images
+  command: "/usr/local/bin/docker-compose -f /opt/eighty4/{{ service_name }}/docker-compose.yml pull"
+
+- name: Configure firewall
+  import_role:
+    name: firewall
+  when: service_ports is defined

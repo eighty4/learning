@@ -1,0 +1,19 @@
+---
+
+- name: Provision a PostgreSQL server to be saved as an AMI
+  hosts: all
+  remote_user: eighty4-admin
+  become: true
+  tasks:
+
+    - name: Install PostgreSQL service
+      import_role:
+        name: compose
+      vars:
+        service_name: postgres
+        service_ports: ['8080', '5432']
+
+    - name: Install PostgreSQL client
+      package:
+        name: ['postgresql-client']
+        state: present

@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  cassandra:
+    container_name: 'cassandra'
+    image: 'cassandra:3.11.4'
+    volumes:
+      - '/opt/eighty4/cassandra/data:/var/lib/cassandra'
+      - '/opt/eighty4/cassandra/logs:/var/log/cassandra'
+    ports:
+      - 9042:9042
+    environment:
+      - CASSANDRA_CLUSTER_NAME="eighty4-dev"

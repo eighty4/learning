@@ -1,0 +1,39 @@
+---
+
+- name: Provision a Cassandra server to be saved as an AMI
+  hosts: all
+  remote_user: eighty4-admin
+  become: true
+  tasks:
+
+    - name: Check if lxd uid is 999
+      command: grep -q 999 /etc/passwd
+      register: checkuid
+      ignore_errors: true
+
+    - name: Change uid of lxd user
+      command: /usr/sbin/usermod -u 900 lxd
+      when: checkuid.rc == 0
+
+    - name: Create Cassandra user
+      user:
+        name: cassandra
+        groups: eighty4
+        shell: /bin/false
+        uid: 999
+        state: present
+
+    - name: Install Cassandra service
+      import_role:
+        name: compose
+      vars:
+        service_name: cassandra
+        service_ports: ['9042']
+
+    - name: Install cqlsh script
+      copy:
+        src: ./files/cqlsh
+        dest: /usr/local/bin/cqlsh
+        owner: eighty4-admin
+        group: eighty4
+        mode: 0550

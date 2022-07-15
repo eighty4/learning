@@ -1,0 +1,36 @@
+---
+
+- name: Ensure eighty4 group is present
+  group:
+    name: eighty4
+    state: present
+
+#- name: Create users (with sudo)
+#  user:
+#    name: "{{ item.username }}"
+#    password: "{{ item.password }}"
+#    groups: eighty4,sudo
+#    shell: /bin/bash
+#    state: present
+#  loop:
+#    - { username: 'eighty4-admin', password: '$6$gYalzbVQQ4RDBN4O$JgjJnKj2L2oKkPEsXLr6FYM.HXIYTnq.W3xc7O5rq73NiVLl2wugwNynHwaduVFtxO1/Zp8Y6/pNi6300Ch/d0'}
+#    - { username: 'adam', password: '$6$QUe80KPB0QOnde.k$MXdnWhjk9NEDGCpVUTsr/Go2Xf8NjR6cLNWq80ppnu2VKbrzyqb9I1O4GXkkmrYpWwnze4OQvWzIs9YfHSKsc/'}
+
+#- name: Create service user (without sudo)
+#  user:
+#    name: "{{ item.username }}"
+#    password: "{{ item.password }}"
+#    groups: eighty4
+#    shell: /bin/bash
+#    state: present
+#  loop:
+#    - { username: 'eighty4-service', password: '$6$0gkrvSugZY7DW0e0$UMxxRugm1pHJoROjBxIRE.lp1.h75Q8YFgLw8EcpkuWl6Y94rf1K3.tTO2trE.Cbkkfo04otJraL8Yr8MqYC8/'}
+
+# todo https://stackoverflow.com/questions/36609083/how-to-delete-current-sudoer-with-ansible
+#- name: Remove Ubuntu user
+#  user:
+#    name: ubuntu
+#    state: absent
+
+#- name: Change permissions of Ansible tmp dir on remote machine
+#  file: path="/var/tmp/.ansible" owner=eighty4-admin group=eighty4 mode=0777

@@ -1,0 +1,14 @@
+---
+
+- name: Install AWS credentials for deployments
+  copy:
+    src: ../files/credentials
+    dest: /home/eighty4-service/.aws/credentials
+    owner: eighty4-service
+    group: eighty4
+    mode: 0440
+
+- name: Install AWS cli
+  package:
+    name: awscli
+    state: latest

@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  teamcity-server:
+    container_name: 'teamcity-server'
+    image: 'jetbrains/teamcity-server:2019.1.4'
+    volumes:
+      - '/opt/eighty4/teamcity/data:/data/teamcity_server/datadir'
+      - '/opt/eighty4/teamcity/logs:/opt/teamcity/logs'
+    ports:
+      - 8111:8111
+    environment:
+      - TEAMCITY_SERVER_MEM_OPTS="-Xmx1200m"

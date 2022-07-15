@@ -1,0 +1,42 @@
+---
+
+#- name: Add public key for SSH
+#  authorized_key:
+#    user: "{{ item.username }}"
+#    key: "{{ item.key }}"
+#    state: present
+#  loop:
+#    - { username: 'adam', key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDV+KGDC5L7PSr6iuQsznndBSStKcrAqBtv8lIGYSApDWmjisbe7DCLal5rkX28K4IzDnLEjstcCEZQ2MxYWi9rbrBN75hQ1FO5r6OCAGn7FF/hOgB4A0DmpDnLyUHFuVc3P6WrGF2kt5hjGdbq7//V+FNYvUHeWEcIrIEqitDi9bSjAof9XFV1cHTHZEz7W4JNQ0qAdkXKiN1kWWpHjoOv+Ps2Lu/YvzkkW6BysRGh0vLhSQeoXxJJy5cuMjI+3Kd53iJS8raO4fTL02ZiLpnKDCTzpgyA8NoorvBc1hSngQ1G9laYy1OcEspfSNE9p3ZZfkBiXR/BGEIbihSFHysIHBC1ZAf2/YYjPPgu6qqF5L7ys2yF64MVgC0LvMeAzt32sjhEGSsY+rEr+BjHZNBUcTyHeLU4MRyTK1KtDyr6LeGDf38AOWN6xPv0qQ6s4M4jC1HutTg3JTNMLHeoHLgOySdH0NG7NEPN+MSsDVcNO1T9jvq3Kqtkh8W0vfMB1xD9eobDV1O/0I2JHX4iwyPcZODSuZ0/t0TqxFMgHD5k05qDhmQyPlBr4UM4H3gJKgDkhbshkfj2d5HAq7eHb0WRK+DNmmJPmsLt/pUBL5ods3FV+I6NaS3aj7/0UDpjilLKqsoVhTSyN7KMZYSdj0V4MQmd0whQFhFqS3TEFhNSZw== adam.mckee84@gmail.com' }
+#    - { username: 'eighty4-admin', key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDV+KGDC5L7PSr6iuQsznndBSStKcrAqBtv8lIGYSApDWmjisbe7DCLal5rkX28K4IzDnLEjstcCEZQ2MxYWi9rbrBN75hQ1FO5r6OCAGn7FF/hOgB4A0DmpDnLyUHFuVc3P6WrGF2kt5hjGdbq7//V+FNYvUHeWEcIrIEqitDi9bSjAof9XFV1cHTHZEz7W4JNQ0qAdkXKiN1kWWpHjoOv+Ps2Lu/YvzkkW6BysRGh0vLhSQeoXxJJy5cuMjI+3Kd53iJS8raO4fTL02ZiLpnKDCTzpgyA8NoorvBc1hSngQ1G9laYy1OcEspfSNE9p3ZZfkBiXR/BGEIbihSFHysIHBC1ZAf2/YYjPPgu6qqF5L7ys2yF64MVgC0LvMeAzt32sjhEGSsY+rEr+BjHZNBUcTyHeLU4MRyTK1KtDyr6LeGDf38AOWN6xPv0qQ6s4M4jC1HutTg3JTNMLHeoHLgOySdH0NG7NEPN+MSsDVcNO1T9jvq3Kqtkh8W0vfMB1xD9eobDV1O/0I2JHX4iwyPcZODSuZ0/t0TqxFMgHD5k05qDhmQyPlBr4UM4H3gJKgDkhbshkfj2d5HAq7eHb0WRK+DNmmJPmsLt/pUBL5ods3FV+I6NaS3aj7/0UDpjilLKqsoVhTSyN7KMZYSdj0V4MQmd0whQFhFqS3TEFhNSZw== adam.mckee84@gmail.com' }
+
+- name: Harden sshd configuration
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+  with_items:
+    - regexp: "^#?PermitRootLogin"
+      line: "PermitRootLogin no"
+    - regexp: "^#?PasswordAuthentication"
+      line: "PasswordAuthentication no"
+    - regexp: "^#?AllowAgentForwarding"
+      line: "AllowAgentForwarding no"
+    - regexp: "^#?AllowTcpForwarding"
+      line: "AllowTcpForwarding no"
+    - regexp: "^#?MaxAuthTries"
+      line: "MaxAuthTries 2"
+    - regexp: "^#?MaxSessions"
+      line: "MaxSessions 2"
+    - regexp: "^#?TCPKeepAlive"
+      line: "TCPKeepAlive no"
+    - regexp: "^#?UseDNS"
+      line: "UseDNS no"
+    - regexp: "^#?AllowAgentForwarding"
+      line: "AllowAgentForwarding no"
+
+#- name: Restart sshd (not necessary if baking into ami)
+#  systemd:
+#    state: restarted
+#    daemon_reload: yes
+#    name: sshd

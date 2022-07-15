@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+  screem-orchestrate:
+    container_name: 'screem-orchestrate'
+    image: '847785660762.dkr.ecr.us-east-1.amazonaws.com/screem/screem-orchestrate'
+    ports:
+      - 8080:8080
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+  screem-proxy:
+    container_name: 'screem-proxy'
+    image: '847785660762.dkr.ecr.us-east-1.amazonaws.com/screem/screem-proxy'
+    ports:
+      - 8081:8081
+      - 8082:8082
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev

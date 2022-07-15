@@ -1,0 +1,12 @@
+---
+
+- name: Install the `fail2ban` package
+  package:
+    name: fail2ban
+    state: latest
+
+#- name: Restart fail2ban (not necessary if baking into ami)
+#  systemd:
+#    state: restarted
+#    daemon_reload: yes
+#    name: fail2ban

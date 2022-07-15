@@ -1,0 +1,19 @@
+[Unit]
+Description={{ service_name }}
+After=docker.service
+Requires=docker.service
+
+[Service]
+User=eighty4-service
+WorkingDirectory=/opt/eighty4/{{ service_name }}
+TimeoutStartSec=infinity
+Restart=no
+
+ExecStartPre=$(aws ecr get-login --no-include-email --region us-east-1)
+ExecStartPre=-/usr/local/bin/docker-compose -f /opt/eighty4/{{ service_name }}/docker-compose.yml down
+ExecStart=/usr/local/bin/docker-compose -f /opt/eighty4/{{ service_name }}/docker-compose.yml up
+ExecReload=/usr/local/bin/docker-compose -f /opt/eighty4/{{ service_name }}/docker-compose.yml restart
+ExecStop=/usr/local/bin/docker-compose -f /opt/eighty4/{{ service_name }}/docker-compose.yml down
+
+[Install]
+WantedBy=multi-user.target

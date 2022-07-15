@@ -1,0 +1,8 @@
+---
+
+# todo https://ownyourbits.com/2017/04/05/customize-your-motd-login-message-in-debian-and-ubuntu/
+#- name: Clean artifact path
+#  file:
+#    state: absent
+#    path: "{{ artifact_path }}/"
+#    when: artifact_path is defined and artifact_path != "" and artifact_path != "/"

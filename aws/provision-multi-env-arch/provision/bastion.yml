@@ -1,0 +1,13 @@
+---
+
+- name: Provision a Bastion server to be saved as an AMI
+  hosts: all
+  remote_user: eighty4-admin
+  become: true
+  tasks:
+
+    - name: Allow agent forwarding
+      lineinfile:
+        dest: /etc/ssh/sshd_config
+        line: "Match Group eighty4\n    AllowTcpForwarding yes"
+        state: present

@@ -1,0 +1,8 @@
+---
+
+- name: Provision a base server to be saved as an AMI
+  hosts: all
+  remote_user: eighty4-admin
+  become: true
+  roles:
+    - base

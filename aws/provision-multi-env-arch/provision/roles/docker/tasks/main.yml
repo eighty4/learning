@@ -1,0 +1,31 @@
+---
+
+- name: Install required packages
+  package:
+    name: ['python-apt', 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common']
+    state: latest
+
+- name: Add Docker GPG apt Key
+  apt_key:
+    id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: Add Docker Repository
+  apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu bionic stable
+    state: present
+
+- name: Install docker-ce
+  apt: update_cache=yes name=docker-ce state=latest
+
+- name: Add users to docker group
+  user:
+    name: "{{ item }}"
+    groups: docker
+    append: true
+    state: present
+  with_items:
+    - adam
+    - eighty4-admin
+    - eighty4-service
