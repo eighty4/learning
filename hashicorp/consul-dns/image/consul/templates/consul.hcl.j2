@@ -1,0 +1,12 @@
+server         = true
+data_dir       = "/opt/consul"
+log_file       = "/var/log/consul/"
+
+{% if consul.bind_addr is defined %}
+bind_addr      = "{{ consul.bind_addr }}"
+{% endif %}
+{% if consul.advertise_addr is defined %}
+advertise_addr = "{{ consul.advertise_addr }}"
+{% endif %}
+
+#enable_syslog = true

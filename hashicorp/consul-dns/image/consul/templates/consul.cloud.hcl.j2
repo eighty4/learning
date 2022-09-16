@@ -1,0 +1,3 @@
+{% if consul.cloud.gcp is defined %}
+retry_join = ["provider=gce project_name={{ consul.cloud.gcp.project_id }} tag_value=consul"]
+{% endif %}
