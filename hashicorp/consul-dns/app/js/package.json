@@ -1,0 +1,6 @@
+{
+  "name": "consul-registered",
+  "dependencies": {
+    "consul": "^1.0.1"
+  }
+}

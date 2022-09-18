@@ -1,0 +1,6 @@
+---
+consul:
+  cloud:
+    gcp:
+      project_id: eighty4-learning
+      join_tag: consul

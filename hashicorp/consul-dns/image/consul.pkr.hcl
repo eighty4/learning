@@ -19,9 +19,6 @@ build {
   provisioner "ansible" {
     playbook_file = "./playbook.yml"
     user          = "packer"
-    extra_arguments = [
-      "--extra-vars", "{\"consul\": {\"gcp\": {\"project_id\": \"${local.gcp_project_id}\"}}}"
-    ]
   }
 
 }

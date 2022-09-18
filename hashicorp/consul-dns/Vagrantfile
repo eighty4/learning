@@ -10,10 +10,38 @@ Vagrant.configure("2") do |config|
             ansible.playbook = "image/playbook.yml"
             ansible.extra_vars = {
                 consul: {
+                    node_name: "consul-node",
+                    server: true,
                     bind_addr: "0.0.0.0",
-                    advertise_addr: "192.168.56.8"
+                    advertise_addr: "192.168.56.8",
+                    client_addr: "0.0.0.0",
+                    bootstrap_expect: 1
                 }
             }
+        end
+    end
+
+    config.vm.define "app-js" do |a|
+        a.vm.provider "virtualbox" do |v|
+            v.memory = 1024
+        end
+        a.vm.box = "debian/bullseye64"
+        a.vm.network "private_network", ip: "192.168.56.9"
+        a.vm.synced_folder "app/js", "/app"
+        a.vm.provision "ansible" do |ansible|
+            ansible.playbook = "image/playbook.yml"
+            ansible.extra_vars = {
+                consul: {
+                    node_name: "app-js-node",
+                    server: false,
+                    advertise_addr: "192.168.56.9",
+                    bind_addr: "0.0.0.0",
+                    retry_join: ["192.168.56.8"]
+                }
+            }
+        end
+        a.vm.provision "shell" do |shell|
+            shell.path = "app/js/install-node.sh"
         end
     end
 

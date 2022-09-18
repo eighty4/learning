@@ -6,7 +6,8 @@
     name: gpg
     state: present
 
-- ansible.builtin.apt_key:
+- name: Install HashiCorp apt key
+  ansible.builtin.apt_key:
     url: https://apt.releases.hashicorp.com/gpg
     state: present
 

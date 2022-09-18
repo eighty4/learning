@@ -1,12 +1,36 @@
-server         = true
-data_dir       = "/opt/consul"
-log_file       = "/var/log/consul/"
+{% if consul.node_name is defined %}
+node_name        = "{{ consul.node_name }}"
+{% endif %}
+
+{% if consul.bootstrap_expect is defined %}
+bootstrap_expect = {{ consul.bootstrap_expect }}
+{% endif %}
+
+{% if consul.server is defined and consul.server == true %}
+server           = true
+{% else %}
+server           = false
+{% endif %}
+
+data_dir         = "/opt/consul"
+log_file         = "/var/log/consul/"
+
+{% if consul.retry_join is defined and consul.retry_join|length > 0 %}
+retry_join = [
+  "{{consul.retry_join|join('",\n  "') }}"
+]
+{% endif %}
 
 {% if consul.bind_addr is defined %}
-bind_addr      = "{{ consul.bind_addr }}"
-{% endif %}
-{% if consul.advertise_addr is defined %}
-advertise_addr = "{{ consul.advertise_addr }}"
+bind_addr        = "{{ consul.bind_addr }}"
 {% endif %}
 
-#enable_syslog = true
+{% if consul.advertise_addr is defined %}
+advertise_addr   = "{{ consul.advertise_addr }}"
+{% endif %}
+
+{% if consul.client_addr is defined %}
+client_addr      = "{{ consul.client_addr }}"
+{% endif %}
+
+#enable_syslog   = true
