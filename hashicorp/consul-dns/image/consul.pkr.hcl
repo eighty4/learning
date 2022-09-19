@@ -17,8 +17,11 @@ build {
   sources = ["source.googlecompute.consul_archetype"]
 
   provisioner "ansible" {
-    playbook_file = "./playbook.yml"
-    user          = "packer"
+    playbook_file   = "./consul.playbook.yml"
+    user            = "packer"
+    extra_arguments = [
+      "--extra-vars", "@consul.gcp.vars.yml"
+    ]
   }
 
 }

@@ -1,0 +1,16 @@
+---
+
+- name: Create systemd-resolved config dir
+  ansible.builtin.file:
+    path: /etc/systemd/resolved.conf.d
+    state: directory
+
+- name: Create systemd-resolved config
+  ansible.builtin.template:
+    src: dns.conf
+    dest: /etc/systemd/resolved.conf.d/consul.conf
+  register: systemd_resolved_config
+
+- name: Restart systemd-resolved
+  ansible.builtin.command: "systemctl restart systemd-resolved"
+  when: systemd_resolved_config.changed

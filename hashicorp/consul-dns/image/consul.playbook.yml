@@ -3,8 +3,6 @@
 - name: Provision a Consul machine image
   hosts: all
   become: true
-  vars_files:
-    - ./gcp_image_vars.yml
   tasks:
     - import_role:
         name: consul

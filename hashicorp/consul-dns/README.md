@@ -17,6 +17,18 @@ consul catalog nodes -service=nodejs-app -detailed -http-addr=192.168.56.8:8500
 vagrant ssh app-js -c "node /app/app.js"
 ```
 
+## DNS
+
+`systemctl --version` must show 246 or higher which is true of Debian 11
+
+```bash
+resolvectl domain
+```
+
+```bash
+resolvectl query consul.service.consul
+```
+
 ## GCP
 
 ```bash
