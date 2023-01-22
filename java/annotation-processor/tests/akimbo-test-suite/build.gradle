@@ -1,0 +1,5 @@
+dependencies {
+    compile(project(':tests:akimbo-test-app'))
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.assertj:assertj-core:3.13.2'
+}

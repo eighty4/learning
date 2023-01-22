@@ -1,0 +1,42 @@
+plugins {
+    id 'application'
+    id 'com.palantir.docker' version '0.22.1'
+}
+
+dependencies {
+    compile(project(':akimbo-core'))
+    compile(project(':akimbo-cassandra'))
+    compile 'com.datastax.oss:java-driver-core:4.3.0'
+    compile 'com.datastax.oss:java-driver-query-builder:4.3.0'
+    compile 'com.datastax.oss:java-driver-mapper-runtime:4.3.0'
+    compile 'com.datastax.oss:java-driver-mapper-processor:4.3.0'
+
+    annotationProcessor(project(':akimbo-cassandra-processor'))
+    annotationProcessor(project(':akimbo-processor'))
+}
+
+mainClassName = "eighty4.akimbo.tests.a_k_i_m_b_o.AkimboApplicationMain"
+applicationName = "Akimbo Test App"
+
+jar {
+    archivesBaseName=project.name
+    manifest {
+        attributes(
+                'Main-Class': 'eighty4.akimbo.tests.a_k_i_m_b_o.AkimboApplicationMain'
+        )
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs += "-Aakimbo.debug=enabled"
+}
+
+docker {
+    dependsOn build
+    name 'akimbo/akimbo-test-app'
+    tag 'local', 'akimbo/akimbo-test-app:latest'
+    files 'build/libs/akimbo-test-app.jar'
+}

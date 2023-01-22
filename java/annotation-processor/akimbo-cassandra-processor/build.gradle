@@ -1,0 +1,26 @@
+apply plugin: 'java-library'
+apply plugin: 'maven-publish'
+
+dependencies {
+    implementation(project(':akimbo-core'))
+    api(project(':akimbo-cassandra'))
+    implementation(project(':akimbo-processor'))
+    implementation 'com.datastax.oss:java-driver-core:4.3.0'
+    implementation 'com.datastax.oss:java-driver-query-builder:4.3.0'
+    implementation 'com.datastax.oss:java-driver-mapper-runtime:4.3.0'
+    implementation 'com.datastax.oss:java-driver-mapper-processor:4.3.0'
+//    annotationProcessor 'com.datastax.oss:java-driver-mapper-processor:4.3.0'
+}
+
+project.afterEvaluate {
+    publishing {
+        publications {
+            myPublicationName(MavenPublication) {
+                groupId = 'eighty4.akimbo'
+                artifactId = 'akimbo-cassandra-processor'
+                version = '1.0-SNAPSHOT'
+                from components.java
+            }
+        }
+    }
+}

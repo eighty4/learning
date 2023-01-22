@@ -1,0 +1,13 @@
+rootProject.name = 'akimbo'
+
+include 'akimbo-core'
+include 'akimbo-processor'
+include 'akimbo-expressions'
+include 'akimbo-cassandra'
+include 'akimbo-cassandra-processor'
+
+include 'samples:http-service-sample'
+
+include 'tests:akimbo-test-app'
+include 'tests:akimbo-test-suite'
+include 'tests:dagger-test-app'

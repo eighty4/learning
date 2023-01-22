@@ -1,0 +1,28 @@
+apply plugin: 'java-library'
+apply plugin: 'maven-publish'
+
+dependencies {
+    implementation(project(':akimbo-core'))
+    implementation(project(':akimbo-expressions'))
+    implementation 'com.squareup:javapoet:1.11.1'
+    implementation 'com.google.dagger:dagger-compiler:2.25.2'
+
+    testCompile 'com.google.testing.compile:compile-testing:0.18'
+    testCompile 'org.assertj:assertj-core:3.13.2'
+    testCompile 'org.mockito:mockito-core:3.1.0'
+    testCompileOnly 'org.projectlombok:lombok:1.18.8'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.8'
+}
+
+project.afterEvaluate {
+    publishing {
+        publications {
+            myPublicationName(MavenPublication) {
+                groupId = 'eighty4.akimbo'
+                artifactId = 'akimbo-processor'
+                version = '1.0-SNAPSHOT'
+                from components.java
+            }
+        }
+    }
+}

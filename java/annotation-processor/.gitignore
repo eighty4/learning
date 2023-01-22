@@ -1,0 +1,12 @@
+.DS_Store
+
+.idea
+.gradle
+
+*/build
+*/out
+
+tests/*/build
+tests/*/out
+samples/*/build
+samples/*/out

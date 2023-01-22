@@ -1,0 +1,30 @@
+plugins {
+    id 'antlr'
+    id 'maven-publish'
+}
+
+dependencies {
+    antlr 'org.antlr:antlr4:4.8'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.assertj:assertj-core:3.13.2'
+}
+
+generateGrammarSource {
+    String destPackage = 'eighty4/akimbo/expressions'
+    arguments += ['-package', destPackage.replaceAll('/', '.'), '-visitor']
+    outputDirectory = new File(buildDir.toString() + '/generated-src/antlr/main/' + destPackage)
+}
+
+project.afterEvaluate {
+    publishing {
+        publications {
+            myPublicationName(MavenPublication) {
+                groupId = 'eighty4.akimbo'
+                artifactId = 'akimbo-expressions'
+                version = '1.0-SNAPSHOT'
+                from components.java
+            }
+        }
+    }
+}

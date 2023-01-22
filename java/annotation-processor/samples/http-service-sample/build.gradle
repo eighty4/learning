@@ -1,0 +1,27 @@
+plugins {
+    id 'application'
+}
+
+dependencies {
+    compile(project(':akimbo-core'))
+    annotationProcessor(project(':akimbo-processor'))
+}
+
+mainClassName = "eighty4.akimbo.samples.http.a_k_i_m_b_o.AkimboApplicationMain"
+applicationName = "Akimbo Http Sample App"
+
+jar {
+    archivesBaseName=project.name
+    manifest {
+        attributes(
+                'Main-Class': 'eighty4.akimbo.samples.http.a_k_i_m_b_o.AkimboApplicationMain'
+        )
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs += "-Aakimbo.debug=enabled"
+}
