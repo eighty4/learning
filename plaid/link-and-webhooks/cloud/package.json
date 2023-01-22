@@ -1,0 +1,13 @@
+{
+  "name": "bank-cloud-root",
+  "version": "0.0.1",
+  "private": true,
+  "workspaces": [
+    "api",
+    "service",
+    "webhook/asset",
+    "webhook/link",
+    "webhook/local",
+    "webhook/tx"
+  ]
+}

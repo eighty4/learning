@@ -1,0 +1,12 @@
+{
+  "name": "bank-webhook-link",
+  "version": "0.0.1",
+  "private": true,
+  "main": "webhook.link.js",
+  "scripts": {
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}

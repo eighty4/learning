@@ -1,0 +1,13 @@
+{
+  "name": "bank-webhook-tx",
+  "version": "0.0.1",
+  "private": true,
+  "main": "webhook.tx.js",
+  "scripts": {
+  },
+  "dependencies": {
+    "bank-api": "0.0.1"
+  },
+  "devDependencies": {
+  }
+}

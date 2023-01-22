@@ -1,0 +1,12 @@
+{
+  "name": "bank-webhook-asset",
+  "version": "0.0.1",
+  "private": true,
+  "main": "webhook.asset.js",
+  "scripts": {
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}

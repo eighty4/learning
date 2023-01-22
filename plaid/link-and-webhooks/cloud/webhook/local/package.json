@@ -1,0 +1,22 @@
+{
+  "name": "bank-webhook-local",
+  "version": "0.0.1",
+  "private": true,
+  "main": "webhook.local.js",
+  "scripts": {
+  },
+  "dependencies": {
+    "bank-api": "0.0.1",
+    "bank-webhook-asset": "0.0.1",
+    "bank-webhook-link": "0.0.1",
+    "bank-webhook-tx": "0.0.1",
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "ngrok": "^4.3.1",
+    "nodemon": "^2.0.16",
+    "plaid": "^10.6.0"
+  },
+  "devDependencies": {
+  }
+}
