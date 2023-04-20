@@ -1,0 +1,4 @@
+version=0.1
+[default.global.parameters]
+stack_name = "default-stack-name"
+region = "us-east-1"

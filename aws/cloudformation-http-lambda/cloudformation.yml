@@ -1,0 +1,43 @@
+# SAM template anatomy https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-specification-template-anatomy.html
+# CloudFormation template anatomy https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html
+
+Transform: AWS::Serverless-2016-10-31
+
+Parameters:
+  Environment:
+    Type: String
+    Default: dev
+    AllowedValues:
+      - dev
+      - prod
+    Description: Environment 'dev' or 'prod'.
+
+Resources:
+  Eighty4AuthApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      Name: eighty4-auth-api
+      StageName: Deploy
+      Domain:
+        DomainName: api.eighty4.tech
+        BasePath: auth
+        CertificateArn: 'arn:aws:acm:us-east-1:XXXX:certificate/XXXX'
+  GitHubOAuthFn:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: 'fn-name'
+      CodeUri: ./functions/
+      Handler: fn_file.fn_impl
+      Runtime: nodejs18.x
+      Environment:
+        Variables:
+          EIGHTY4_ENV: !Sub '${Environment}'
+      Events:
+        HttpApi:
+          Type: HttpApi
+          Properties:
+            Path: /github
+            Method: get
+            Auth:
+              Authorizer: NONE
+            ApiId: !Ref Eighty4AuthApi
