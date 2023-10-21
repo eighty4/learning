@@ -1,0 +1,10 @@
+.idea
+cmake-build-debug
+
+*.crt
+*.key
+*.pem
+*.srl
+*.csr
+*.ext
+

@@ -1,0 +1,8 @@
+{
+  "name": "learning-openssl",
+  "version": "0.0.1",
+  "dependencies": [
+    "fmt",
+    "openssl"
+  ]
+}
